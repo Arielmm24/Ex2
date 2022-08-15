@@ -100,20 +100,19 @@ int Polynomial::getMaxDegree()
 }
 
 void Polynomial::operator +(const Polynomial& p1) {
-	int small, big ,flag;
+	int small, big ,flag=0;
 	//double result;
 	Polynomial result;
 	if (this->getDegree(true) > p1.getDegree(true))
 	{
 		big = this->getDegree(true);
 		small = p1.degree;
-		flag = 1;
+		flag = 1;               // flag=1 --> this.degree   Bigger
 	}
 	else
 	{
 		big = p1.degree;
-		small = this->getDegree(true); 
-		flag = 0;
+		small = this->getDegree(true);          // flag=0 --> p1.degree   Bigger
 	}
 	result.setDegree(big);
 	for (int i = 0; i < small + 1; i++)
