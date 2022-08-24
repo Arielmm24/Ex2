@@ -90,7 +90,7 @@ void testPolynomial()
 	p2.setCoeff(2, 0.4);
 
 	cout << endl << "test ADI";
-	p1 + p2;
+	p1 + p2;//test git hub
 	
 
 	cout << "test2: " << p2 << "degree=" << p2.getDegree(false) << endl;
