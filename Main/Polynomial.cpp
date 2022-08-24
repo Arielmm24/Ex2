@@ -87,7 +87,7 @@ void Polynomial::print()
 		cout << coeff[0];
 		for (int i = 1; i < degTemp; i++)
 		{
-			cout << "+" << coeff[i] << "x" << "^" << i;
+			cout << "+" <<"("<< coeff[i] <<")"<< "x" << "^" << i;
 		}
 	}
 		cout << endl;
@@ -99,8 +99,8 @@ int Polynomial::getMaxDegree()
 	return maxDegree;
 }
 
-void Polynomial::operator +(const Polynomial& p1) {
-	int small, big ,flag;
+Polynomial Polynomial::operator +(const Polynomial& p1) {
+	int small, big ,flag=0,i;
 	//double result;
 	Polynomial result;
 	if (this->getDegree(true) > p1.getDegree(true))
@@ -113,15 +113,20 @@ void Polynomial::operator +(const Polynomial& p1) {
 	{
 		big = p1.degree;
 		small = this->getDegree(true); 
-		flag = 0;
 	}
 	result.setDegree(big);
-	for (int i = 0; i < small + 1; i++)
+	for (i = 0; i <= small; i++)
 	{
 		result.setCoeff(i, this->getCoeff(i) + p1.getCoeff(i));
 	}
-	cout << "result" << endl;
-	result.print(); //"big = " << big << "  small = " << small << endl;
+	for (i = small + 1; i <= big; i++)
+	{
+		if (flag == 1) {
+			result.setCoeff(i, this->getCoeff(i));
+		}
+		else { result.setCoeff(i, p1.getCoeff(i)); }
+	}
+	return result;
 	
 }
 
@@ -141,3 +146,81 @@ ostream& operator <<(ostream& out, const Polynomial& p) {
 	out << endl;
 		return out;
 }
+
+Polynomial Polynomial::operator *(const Polynomial& p1) {
+	int small, big, flag = 0, i;
+	//double result;
+	Polynomial result;
+	if (this->getDegree(true) > p1.getDegree(true))
+	{
+		big = this->getDegree(true);
+		small = p1.degree;
+		flag = 1;
+	}
+	else
+	{
+		big = p1.degree;
+		small = this->getDegree(true);
+	}
+	result.setDegree(big);
+	for (i = 0; i <= small ; i++)
+	{
+		result.setCoeff(i*2, this->getCoeff(i) * p1.getCoeff(i));
+	}
+	for (i = small ; i < big; i++)
+	{
+		if (flag == 1) {
+			result.setCoeff(i, this->getCoeff(i));
+		}
+		else { result.setCoeff(i, p1.getCoeff(i)); }
+	}
+	return result;
+}
+
+Polynomial Polynomial::operator -(const Polynomial& p1) {
+	int small, big, flag = 0, i;
+	//double result;
+	Polynomial result;
+	if (this->getDegree(true) > p1.getDegree(true))
+	{
+		big = this->getDegree(true);
+		small = p1.degree;
+		flag = 1;
+	}
+	else
+	{
+		big = p1.degree;
+		small = this->getDegree(true);
+	}
+	result.setDegree(big);
+	for (i = 0; i <= small; i++)
+	{
+		result.setCoeff(i, this->getCoeff(i) - p1.getCoeff(i));
+	}
+	for (i = small + 1; i <= big; i++)
+	{
+		if (flag == 1) {
+			result.setCoeff(i, this->getCoeff(i));
+		}
+		else { result.setCoeff(i, p1.getCoeff(i)); }
+	}
+	return result;
+}
+
+bool Polynomial::operator==(const Polynomial& p1)
+{
+	int flag = 0, i = 0;
+	if (p1.getDegree(true) == this->getDegree(true))
+	{
+		for (i = 0; i < p1.getDegree(true); i++)
+		{
+			if (this->getCoeff(i) != p1.getCoeff(i))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+

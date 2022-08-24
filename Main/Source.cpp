@@ -84,22 +84,17 @@ void testPolynomial()
 {
 	cout << "----- start testPolynomial ---------" << endl;
 	cout << "test0 :" << Polynomial::getMaxDegree() << endl;
-	Polynomial p1;
+	Polynomial p1(9);
 	cout << "test1: " << p1;
 	Polynomial p2(16);
 	p2.setCoeff(2, 0.4);
-
-	cout << endl << "test ADI";
-	p1 + p2;
-	
-
 	cout << "test2: " << p2 << "degree=" << p2.getDegree(false) << endl;
 	double c[5] = { 0.1, 0.2, 0 ,11.5, 1.3 };
 	Polynomial p3(c, 4);
 	cout << "test3: " << p3;
 	p2.setCoeff(2, 0.0);
 	cout << "test4: " << p2;
-	//p2 = (p1 + 2.5 * p3 - 0.9 * p3) * p3;
+	p2 = (p1 + 2.5 * p3 - 0.9 * p3) * p3;
 	double v[4];
 	v[0] = getCoefficient(p2, 3);
 	v[1] = getCoefficient(p2, 0);
@@ -108,7 +103,7 @@ void testPolynomial()
 	cout << "test6 :maxDegree = " << Polynomial::getMaxDegree() << endl;
 	cout << "______________" << endl;
 }
-/*void testRational() {
+void testRational() {
 	cout << "----- start testRational ---------" << endl;
 	cout << "test7" << endl;
 	Rational r1;
@@ -145,11 +140,20 @@ void testPolynomial()
 	cout << "test12 :maxDegree = " << Polynomial::getMaxDegree() << endl;
 	cout << "__________________________" << endl;
 }
-*/
+
 int main()
 {
-	testPolynomial();
+	//testPolynomial();
 	//testRational();
+	double c[] = { 0,2,2,3,4,5 };
+	double d[] = { 1.2,2.5,5.5,3.7,4.2,5 };
+	Polynomial p1(c, 5);
+	Polynomial p2(d, 5);
+	Rational r4(p1, p2);
+	cout <<"r4 : "<< r4 << endl;
+	Rational r5(p2, p1);
+	cout << "r5 : " << r5 << endl;
+	cout << r4 + r5;
 }
 
 

@@ -34,8 +34,21 @@ public:
 	void setDegree(int);
 
 	//operators
-	void operator +(const Polynomial&);
+	Polynomial operator +(const Polynomial&);
+	Polynomial operator *(const Polynomial&);
+	Polynomial operator -(const Polynomial&); 
+	friend Polynomial operator *(double index , const Polynomial&p1)
+	{
+		Polynomial temp(p1.coeff,p1.degree);
+		for (int i = 0; i < p1.getDegree(true); i++)
+		{
+			temp.setCoeff(i, index * p1.getCoeff(i));
+		}
+		return temp;
+	}
 	friend ostream& operator <<(ostream& , const Polynomial&);
+	bool operator==(const Polynomial&);
+	//void operator=(const Polynomial&);
 };
 
 

@@ -21,6 +21,12 @@ public:
 
 	void print();
 
+	//operators
+	Rational operator +(const Rational&);
+	Rational operator *(const Rational&);
+	bool operator==(const Rational&);
+	friend ostream& operator <<(ostream&, const Rational&);
+
 
 };
 
